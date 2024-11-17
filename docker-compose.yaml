@@ -25,7 +25,7 @@ services:
       - postiz-config:/config/
       - postiz-uploads:/uploads/
     ports:
-      - 5000:5000
+      - 5001:5001
     networks:
       - postiz-network
     depends_on:

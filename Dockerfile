@@ -34,7 +34,7 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 # Expose the port that matches the docker-compose.yaml
-EXPOSE 5000
+EXPOSE 5001
 
 COPY var/docker/entrypoint.sh /app/entrypoint.sh
 COPY var/docker/supervisord.conf /etc/supervisord.conf
