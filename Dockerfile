@@ -9,9 +9,22 @@ ARG NODE_VERSION="20.17"
 # Base image
 FROM docker.io/node:${NODE_VERSION}-alpine3.19 AS base
 
-## Just reduce unccessary noise in the logs.
+## Just reduce unnecessary noise in the logs.
 ENV NPM_CONFIG_UPDATE_NOTIFIER=false
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Set environment variables from docker-compose.yaml
+ENV MAIN_URL="localhost"
+ENV FRONTEND_URL="localhost"
+ENV NEXT_PUBLIC_BACKEND_URL="localhost/api"
+ENV JWT_SECRET="efsdijgfepjsfdpveijfpvciejfsdfvilecdsuuewhbdubceuwbcoeuwhiofwhpfiwjdpfijpwijfirejf43753957498375r98rehfsklshd"
+ENV DATABASE_URL="postgresql://postiz-user:postiz-password@postiz-postgres:5432/postiz-db-local"
+ENV REDIS_URL="redis://postiz-redis:6379"
+ENV BACKEND_INTERNAL_URL="http://localhost:3000"
+ENV IS_GENERAL="true"
+ENV STORAGE_PROVIDER="local"
+ENV UPLOAD_DIRECTORY="/uploads"
+ENV NEXT_PUBLIC_UPLOAD_DIRECTORY="/uploads"
 
 RUN apk add --no-cache \
 	caddy \
@@ -20,8 +33,7 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-EXPOSE 3000
-EXPOSE 4200
+# Expose the port that matches the docker-compose.yaml
 EXPOSE 5000
 
 COPY var/docker/entrypoint.sh /app/entrypoint.sh
